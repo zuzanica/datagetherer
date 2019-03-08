@@ -1,0 +1,42 @@
+<!doctype html>
+<head>
+    <script>
+        function submitVote() {
+            if(document.getElementById('gender_Male').checked) {
+                console.log("Vote Male");
+            }else if(document.getElementById('gender_Female').checked) {
+                console.log("Vote Female");
+            }
+            const url="/vote";
+            const Http = new XMLHttpRequest();
+            
+            Http.open("POST", url);
+            Http.send();
+            Http.onreadystatechange=(e)=>{
+            console.log(Http.responseText)
+            }
+            console.log("Vote submitted")
+        }
+
+        function nextImage() {
+            location.reload();
+        }
+    </script>
+
+</head>
+<body>
+<title>Hello from Flask</title>
+
+  <h1>Image {{ image_id }} {{ image_path }} </h1>
+
+  <img src="{{url_for('static', filename=image_path)}}" alt="Source image">
+
+  <form action="">
+    <input type="radio" name="gender" value="male" id="gender_Male"> Male<br>
+    <input type="radio" name="gender" value="female" id="gender_Female"> Female<br>
+  </form>
+
+  <button onclick="submitVote({{ image_id }})">Submit vote</button>
+
+  <button onclick="nextImage()">Next image</button>
+  </body>

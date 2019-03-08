@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Co vidis?</title>
+    <script>
+        function nextImage() {
+            location.reload();
+        }
+    </script>
+</head>
+<body>
+<form action="" method = "post" >
+    <h1>Image {{ image.label }} {{ image.path }} </h1>
+
+    <img src="{{url_for('static', filename=image.path)}}" alt="Source image">
+
+
+
+        {{ form.gender.lable }} {{ form.gender }}
+        {{ form.age }}
+
+
+    <div class="input submit">
+        <input onclick="nextImage()" type="submit" value="Submit">
+    </div>
+
+</form>
+
+
+</body>
+</html>
