@@ -9,7 +9,7 @@ from wtforms.validators import Required
 
 import random
 
-STORE_DATA = False
+STORE_DATA = True
 USER_ID = 12345
 
 gender = {"men", "female"}
@@ -25,10 +25,6 @@ class FormProject(FlaskForm):
     Code = StringField('Code', [Required(message='Please enter your code')])
     Tasks = MultiCheckboxField('Proses', [Required(message='Please tick your task')],
                                choices=[('female', 'man'), ('female', 'male')])
-
-
-class ReusableForm(Form):
-    name = TextField('Name:', validators=[validators.required()])
 
 
 class DataGethererForm(FlaskForm):
@@ -72,7 +68,7 @@ def get_random_priority():
     return 1
 
 
-@app.route('/test/', methods=['GET', 'POST'])
+@app.route('/vote/', methods=['GET', 'POST'])
 def classification():
     print("*******************************")
     imageService = ImageService()
@@ -94,7 +90,7 @@ def classification():
     return jsonify({'error': 'Image id not found'}), 200
 
 
-@app.route('/vote/')
+@app.route('/test/')
 def vote():
     if request.json and 'classification' in request.json:
         return jsonify({'response': classification}), 200
@@ -110,30 +106,3 @@ def image(image_id):
     return jsonify({'error': 'Image id not found'}), 200
 
 
-@app.route('/checkbox/', methods=['GET', 'POST'])
-def testCheckbox():
-    form = FormProject(request.form)
-    if request.method == 'POST':
-        checked = request.form['Tasks']
-        print(checked)
-
-    return render_template('checkbox.html', form=form)
-
-
-@app.route('/form/', methods=['GET', 'POST'])
-def testform():
-    form = ReusableForm(request.form)
-
-    print(form.errors)
-
-    if request.method == 'POST':
-        name = request.form['name']
-        print(name)
-
-    if form.validate():
-        # Save the comment here.
-        flash('Hello ' + name)
-    else:
-        flash('All the form fields are required. ')
-
-    return render_template('hello.html', form=form)
