@@ -66,8 +66,8 @@ class Database:
         result = self.cur.fetchall()
         return result
 
-    def get_imgages_by_priority(self, priority):
-        query = self.qc.selectImage(["id", "name", "path", "priority"]) \
+    def get_img_ids_by_priority(self, priority):
+        query = self.qc.selectImage(["id"]) \
             .where("priority > %s" % priority) \
             .build()
         print(query)

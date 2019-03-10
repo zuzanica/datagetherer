@@ -11,18 +11,16 @@
 </head>
 <body>
 <form action="" method = "post" >
-    <h1>Image {{ image.label }} {{ image.path }} </h1>
+    <h1>Image {{ image.id }} {{ image.path }} </h1>
 
     <img src="{{url_for('static', filename=image.path)}}" alt="Source image">
-
-
 
         {{ form.gender.lable }} {{ form.gender }}
         {{ form.age }}
 
 
     <div class="input submit">
-        <input onclick="nextImage()" type="submit" value="Submit">
+        <input type="submit" value="Submit">
     </div>
 
 </form>
