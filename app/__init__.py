@@ -31,7 +31,7 @@ class QueryCreator:
         self.query = self.query + "WHERE %s " % condition
         return self
 
-    #def where(self, param, value):
+    # def where(self, param, value):
     #    self.query = self.query + "WHERE %s = %s" % param, value
     #    return self
 
@@ -39,7 +39,8 @@ class QueryCreator:
         return "AND %s %s %s" % param, operator, value
 
     def build(self):
-            return self.query + ";"
+        return self.query + ";"
+
 
 class Database:
 
@@ -66,8 +67,8 @@ class Database:
         return result
 
     def get_imgages_by_priority(self, priority):
-        query = self.qc.selectImage(["id", "name", "path", "priority"])\
-            .where("priority = %s" % priority)\
+        query = self.qc.selectImage(["id", "name", "path", "priority"]) \
+            .where("priority > %s" % priority) \
             .build()
         print(query)
         self.cur.execute(query)
@@ -77,3 +78,11 @@ class Database:
     def save_annotation(self, values):
         query = "INSERT INTO ANNOTATION(gender, age,  image_id, user_id) VALUES (%s, %s, %s, %s);"
         self.save(query, values)
+
+    def insert_image(self, values):
+        query = "INSERT INTO IMAGE(name, path, priority) VALUES (%s, %s, %s);"
+        self.save(query, values)
+
+    def insert_images(self, images_list):
+        for image in images_list:
+            self.insert_image((image["name"], image['path'], image["priority"]))

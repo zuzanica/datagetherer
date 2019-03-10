@@ -9,7 +9,7 @@ from wtforms.validators import Required
 
 import random
 
-STORE_DATA = True
+STORE_DATA = False
 USER_ID = 12345
 
 gender = {"men", "female"}
@@ -41,10 +41,11 @@ class ImageService:
     def get_img_by_priority(self, priority):
 
         imgs = self.db.get_imgages_by_priority(priority)
-        print("Hodnoty z DB:", imgs[0])
+        num = random.randrange(1, len(imgs))
+        print("Hodnoty z DB:", imgs[num])
 
-        path = imgs[0]["path"]
-        image_id = imgs[0]["id"]
+        path = imgs[num]["path"]
+        image_id = imgs[num]["id"]
         return {"label": image_id, "path": path}
 
     def get_img_by_id(self, image_id):
@@ -61,10 +62,10 @@ class ImageService:
 
 def get_random_priority():
     num = random.randrange(1, 100)
-    if num > 66:
-        return 100
-    elif num > 33:
-        return 50
+    #if num > 66:
+    #    return 100
+    #elif num > 33:
+    #    return 50
     return 1
 
 
