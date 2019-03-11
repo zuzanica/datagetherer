@@ -1,5 +1,4 @@
 from app import Database
-import os
 
 file_name = "BUT_dataset.txt"
 
@@ -14,9 +13,8 @@ def create_images_from_file(file):
 
     for img_dict in img_list:
         print (img_dict)
+
+    db.insert_images(img_list)
     f.close()
-
-   #db.insert_images(img_list)
-
 
 create_images_from_file(file_name)

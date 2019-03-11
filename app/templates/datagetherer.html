@@ -2,28 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Co vidis?</title>
-    <script>
-        function nextImage() {
-            location.reload();
-        }
-    </script>
+    <title>Čo vidíš?</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
-<form action="" method = "post" >
-    <h1>Image {{ image.id }} {{ image.path }} </h1>
 
-    <img src="{{url_for('static', filename=image.path)}}" alt="Source image">
+    <form action="" method = "post" >
+        <div class = "jumbotron">
+            <div class="container">
+            <h1 class="display-3">Image id: {{ image.id }}</h1>
 
-        {{ form.gender.lable }} {{ form.gender }}
-        {{ form.age }}
+            <img src="{{url_for('static', filename=image.path)}}" alt="Source image">
+            </div>
+        </div>
+        <div class="container">
+            <div class="container">
+                <div class="col-md-2">
+                    <h2>Gender:</h2>
+                    {{ form.gender.lable }} {{ form.gender }}
+                </div>
 
+                <div class="col-md-2">
+                    <h2>Age:</h2>
+                    {{ form.age }}
 
-    <div class="input submit">
-        <input type="submit" value="Submit">
-    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <input class="btn btn-primary" type="submit" role="button" value="Next »">
+        </div>
 
-</form>
+    </form>
 
 
 </body>

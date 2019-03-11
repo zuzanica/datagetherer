@@ -1,13 +1,12 @@
-from app import app, Database
-from flask import Flask, jsonify, request, render_template, flash, redirect, url_for
-from wtforms import Form, TextField, TextAreaField, validators, SubmitField, RadioField
-
-from flask_wtf import FlaskForm
-from wtforms import StringField, SelectMultipleField
-from wtforms.widgets import ListWidget, CheckboxInput
-from wtforms.validators import Required
-
 import random
+from flask import jsonify, request, render_template, redirect, url_for
+from flask_wtf import FlaskForm
+from wtforms import RadioField
+from wtforms import StringField, SelectMultipleField
+from wtforms.validators import Required
+from wtforms.widgets import ListWidget, CheckboxInput
+
+from app import app, Database
 
 STORE_DATA = False
 USER_ID = 12345
@@ -108,6 +107,16 @@ def vote():
     else:
         return jsonify({'response': 'Not found'}), 404
 '''
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        imageService = ImageService()
+        next_img_id = imageService.next_rnd_id()
+        return redirect(url_for('image', image_id=str(next_img_id["id"])))
+
+    return render_template('index.html')
 
 
 @app.route('/image/<int:image_id>', methods=['GET', 'POST'])

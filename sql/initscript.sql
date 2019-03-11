@@ -1,16 +1,18 @@
-CREATE TABLE IF NOT EXISTS image (
+CREATE TABLE IF NOT EXISTS IMAGE (
     id INT NOT NULL AUTO_INCREMENT primary key,
     name VARCHAR(255) NOT NULL,
-    path VARCHAR(255) NOT NULL
+    path VARCHAR(255) NOT NULL,
+    priority int NOT NULL
 )  ENGINE=INNODB;
 
-CREATE TABLE annotation(
+CREATE TABLE ANNOTATION(
    id int not null auto_increment primary key,
    gender decimal,
    age decimal,
    image_id int not null,
+   user_id int,
    FOREIGN KEY fk_image(image_id)
-   REFERENCES image(id)
+   REFERENCES IMAGE(id)
    ON UPDATE CASCADE
    ON DELETE RESTRICT
 )ENGINE=InnoDB;
