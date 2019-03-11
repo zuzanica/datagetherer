@@ -24,7 +24,7 @@ class QueryCreator:
         values_str = ''
         for val in values:
             values_str = values_str + val + ","
-        self.query = self.query + "SELECT %s FROM image " % values_str[:-1]
+        self.query = self.query + "SELECT %s FROM IMAGE " % values_str[:-1]
         return self
 
     def where(self, condition):
@@ -46,9 +46,9 @@ class Database:
 
     def __init__(self):
         host = "127.0.0.1"
-        user = "zuzka"
-        password = "21294"
-        db = "datacollector"
+        user = ""
+        password = ""
+        db = ""
         self.con = pymysql.connect(host=host, user=user, password=password, db=db, cursorclass=pymysql.cursors.
                                    DictCursor)
         self.cur = self.con.cursor()
@@ -62,7 +62,7 @@ class Database:
         #    print(error)
 
     def get_image(self, id):
-        self.cur.execute("SELECT name, path FROM image WHERE id = %s ;", id)
+        self.cur.execute("SELECT name, path FROM IMAGE WHERE id = %s ;", id)
         result = self.cur.fetchall()
         return result
 
