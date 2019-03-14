@@ -7,8 +7,7 @@ from wtforms.validators import Required
 from wtforms.widgets import ListWidget, CheckboxInput
 
 from app import app, Database
-
-STORE_DATA = False
+STORE_DATA = True
 USER_ID = 12345
 
 gender = {"men", "female"}
@@ -79,27 +78,6 @@ def get_random_priority():
 
 
 '''
-@app.route('/vote/', methods=['GET', 'POST'])
-def classification():
-    print("*******************************")
-    imageService = ImageService()
-    priority = get_random_priority()
-    print("priorita:", priority)
-    selected_img = imageService.get_rand_img_by_priority(priority)
-
-    form = DataGethererForm(request.form)
-    if request.method == 'POST':
-        checked_gender = request.form['gender']
-        checked_age = request.form['age']
-        print("gender:", checked_gender)
-        print("age:", checked_age)
-        if (STORE_DATA):
-            imageService.save_annotation(selected_img['id'], USER_ID, int(checked_gender), int(checked_age))
-
-    return render_template('datagetherer.html', form=form, image=selected_img)
-    return jsonify({'error': 'Image id not found'}), 200
-
-
 @app.route('/test/')
 def vote():
     if request.json and 'classification' in request.json:

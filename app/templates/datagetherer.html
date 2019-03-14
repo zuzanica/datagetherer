@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Čo vidíš?</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
 </head>
 <body>
 
     <form action="" method = "post" >
         <div class = "jumbotron">
-            <div class="container">
-            <h1 class="display-3">Image id: {{ image.id }}</h1>
+            <div class="container middle">
+            <h1 class="display-4">Image id: {{ image.id }}</h1>
 
             <img src="{{url_for('static', filename=image.path)}}" alt="Source image">
             </div>
