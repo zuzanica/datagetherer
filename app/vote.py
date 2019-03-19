@@ -109,12 +109,13 @@ def image(image_id):
     # id = random.randrange(1, 100)
     # path = "2.jpg"
     if request.method == 'POST':
-        checked_gender = request.form['gender']
-        checked_age = request.form['age']
-        print("gender:", checked_gender)
-        print("age:", checked_age)
-        if (STORE_DATA):
-            imageService.save_annotation(selected_img['id'], USER_ID, int(checked_gender), int(checked_age))
+        if request.form['form-type'] == 'Next »':
+            checked_gender = request.form['gender']
+            checked_age = request.form['age']
+            print("gender:", checked_gender)
+            print("age:", checked_age)
+            if (STORE_DATA):
+                imageService.save_annotation(selected_img['id'], USER_ID, int(checked_gender), int(checked_age))
 
         next_img_id = imageService.next_rnd_id()
         return redirect(url_for('image', image_id=str(next_img_id["id"])))
