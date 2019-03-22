@@ -6,7 +6,9 @@ from wtforms import StringField, SelectMultipleField
 from wtforms.validators import Required
 from wtforms.widgets import ListWidget, CheckboxInput
 
-from app import app, Database
+from app import app
+from app.ImageService import ImageService
+
 STORE_DATA = True
 USER_ID = 12345
 
@@ -29,62 +31,9 @@ class DataGethererForm(FlaskForm):
     gender = RadioField('Gender', choices=[('0', 'male'), ('1', 'female')])
     age = RadioField('Gender', choices=[('0', 'child'), ('1', 'teen'), ('2', 'adoult'), ('3', 'retiree')])
 
-
-class ImageService:
-
-    def __init__(self):
-        self.db = Database()
-        pass
-
-    def get_img_ids_by_priority(self, priority):
-        return self.db.get_img_ids_by_priority(priority)
-
-    def get_rand_img_by_priority(self, priority):
-        imgs = self.db.get_img_ids_by_priority(priority)
-        num = random.randrange(1, len(imgs))
-        print("Hodnoty z DB:", imgs[num])
-
-        path = imgs[num]["path"]
-        image_id = imgs[num]["id"]
-        return {"id": image_id, "path": path}
-
-    def get_img_by_id(self, image_id):
-        img = self.db.get_image(image_id)
-
-        print("Hodnoty z DB:", img[0]["name"], img[0]["path"])
-
-        path = img[0]["path"]
-        return {"id": image_id, "path": path}
-
-    def save_annotation(self, img_id, user_id, gender=None, age=None):
-        self.db.save_annotation((gender, age, img_id, user_id))
-
-    def next_rnd_id(self):
-        priority = get_random_priority()
-        print("priorita:", priority)
-        ids = self.get_img_ids_by_priority(priority)
-        i = random.randrange(1, len(ids))
-        print("Vybrany img z DB:", ids[i])
-        return ids[i]
-
-
-def get_random_priority():
-    num = random.randrange(1, 100)
-    # if num > 66:
-    #    return 100
-    # elif num > 33:
-    #    return 50
-    return 1
-
-
-'''
-@app.route('/test/')
-def vote():
-    if request.json and 'classification' in request.json:
-        return jsonify({'response': classification}), 200
-    else:
-        return jsonify({'response': 'Not found'}), 404
-'''
+class DataGethererForm(FlaskForm):
+    gender = RadioField('Gender', choices=[('0', 'male'), ('1', 'female')])
+    age = RadioField('Gender', choices=[('0', 'child'), ('1', 'teen'), ('2', 'adoult'), ('3', 'retiree')])
 
 
 @app.route('/', methods=['GET', 'POST'])
