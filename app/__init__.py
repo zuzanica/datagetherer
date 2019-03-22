@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
+from configparser import ConfigParser
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 parentdir = os.path.join(basedir, '..')
@@ -44,11 +45,14 @@ class QueryCreator:
 
 class Database:
 
-    def __init__(self):
-        host = "127.0.0.1"
-        user = ""
-        password = ""
-        db = ""
+    def __init__(self, conf_file="app/db.ini"):
+        parser = ConfigParser()
+        parser.read(conf_file)
+
+        host = parser.get('mysql', 'host')
+        user = parser.get('mysql', 'user')
+        password = parser.get('mysql', 'password')
+        db = parser.get('mysql', 'db')
         self.con = pymysql.connect(host=host, user=user, password=password, db=db, cursorclass=pymysql.cursors.
                                    DictCursor)
         self.cur = self.con.cursor()
