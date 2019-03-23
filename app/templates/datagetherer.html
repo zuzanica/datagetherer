@@ -5,37 +5,54 @@
     <title>Čo vidíš?</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script>
+        function show_selected(name) {
+            check_boxes = document.getElementsByName(name)
+            for (var i=0;i<check_boxes.length;i++){
+              if ( check_boxes[i].checked ) {
+                check_boxes[i].labels[0].setAttribute("style", "border: 3px solid #0073e6;");
+              } else {
+                check_boxes[i].labels[0].setAttribute("style", "border: 1px solid grey;");
+              }
+            }
+        }
+    </script>
 
 </head>
 <body>
-
+    {% from "_formhelpers.html" import render_field %}
     <form action="" method = "post" >
         <div class = "jumbotron">
-            <div class="container middle">
-            <h1 class="display-4">Image id: {{ image.id }}</h1>
+            <div id="main_image" class="container middle">
+            <h1 class="display-4">Image id: {{image.id}}</h1>
 
             <img src="{{url_for('static', filename=image.path)}}" alt="Source image">
             </div>
         </div>
         <div class="container">
             <div class="container">
-                <div class="col-md-2">
-                    <h2>Gender:</h2>
-                    {{ form.gender.lable }} {{ form.gender }}
+                <div class="row">
+                    <div class="col-sm-3">
+                        {{ form.gender.label }}
+                        {{ form.gender(onclick="show_selected('gender')") }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form.age.label }}
+                        {{ form.age(onclick="show_selected('age')") }}
+                    </div>
+
                 </div>
-
-                <div class="col-md-2">
-                    <h2>Age:</h2>
-                    {{ form.age }}
-
+                <div class="row">
+                    {{ form.style.label }}
+                    {{ form.style(onclick="show_selected('style')") }}
                 </div>
             </div>
         </div>
         <div class="container">
-            <div class="col-md-2">
+            <div class="col-sm-2">
                 <input class="btn btn-primary" name='form-type' type="submit" role="button" value="Next »">
             </div>
-            <div class="col-md-2">
+            <div class="col-sm-2">
                 <input class="btn btn-primary" name='form-type' type="submit" role="button" value="Skip »">
             </div>
         </div>

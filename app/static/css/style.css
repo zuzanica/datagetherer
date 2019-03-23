@@ -1,4 +1,86 @@
+#main_image img{
+width: 400px;
+height:230px;
+}
+
+
 ul {
     list-style-type:none;
     padding-inline-start: 10px;
+}
+#gender-0{
+display: none !important;
+}
+
+#gender-1{
+display: none !important;
+}
+
+#age-0{
+display: none !important;
+}
+
+#age-1{
+display: none !important;
+}
+#age-2{
+display: none !important;
+}
+#age-3{
+display: none !important;
+}
+#age-4 {
+display: none !important;
+}
+
+
+#style-1{
+display: none !important;
+}
+#style-2{
+display: none !important;
+}
+#style-3{
+display: none !important;
+}
+#style-4{
+display: none !important;
+}
+#style-5{
+display: none !important;
+}
+#style-6{
+display: none !important;
+}
+#style-0{
+display: none !important;
+}
+
+label img {
+border: 1px solid grey;
+}
+
+ul#style img{
+    width: 90px;
+    height: 130px;
+    padding: 5px;
+}
+
+ul#gender img {
+ max-width: 50px;
+}
+
+ul#age img{
+    width: 60px;
+    height: 130px;
+}
+
+
+ul li {
+    display:inline !important;
+}
+
+div.desc {
+  padding: 5px;
+  text-align: center;
 }

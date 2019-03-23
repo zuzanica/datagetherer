@@ -28,12 +28,26 @@ class FormProject(FlaskForm):
 
 
 class DataGethererForm(FlaskForm):
-    gender = RadioField('Gender', choices=[('0', 'male'), ('1', 'female')])
-    age = RadioField('Gender', choices=[('0', 'child'), ('1', 'teen'), ('2', 'adoult'), ('3', 'retiree')])
+    gender = RadioField(label='Gender',
+                        choices=[('0', '<img src="/static/female-icon.png">'),
+                                 ('1', '<img src="/static/male-icon.png">')])
+    age = RadioField(label='Age',
+                     choices=[('0', '<img src="/static/age/child.jpg">'),
+                              ('1', '<img src="/static/age/teen.png">'),
+                              ('2', '<img src="/static/age/youngadult'
+                                    '.png">'),
+                              ('3', '<img src="/static/age/adult.jpg">'),
+                              ('4', '<img src="/static/age/retiree.png">')])
 
-class DataGethererForm(FlaskForm):
-    gender = RadioField('Gender', choices=[('0', 'male'), ('1', 'female')])
-    age = RadioField('Gender', choices=[('0', 'child'), ('1', 'teen'), ('2', 'adoult'), ('3', 'retiree')])
+    style = RadioField(label='Mode style',
+                       choices=[('0', '<img src="/static/modestyle/casual.png"> <div class="desc">casual</div>'),
+                                ('1', '<img src="/static/modestyle/sport.png"> <div class="desc">sport</div>'),
+                                ('2', '<img src="/static/modestyle/rock.png"> <div class="desc">rock</div>'),
+                                ('3', '<img src="/static/modestyle/street.png"> <div class="desc">street</div>'),
+                                ('4', '<img src="/static/modestyle/elegant.png"> <div class="desc">elegant</div>'),
+                                ('5', '<img src="/static/modestyle/formal.png"> <div class="desc">formal</div>'),
+                                ('6', '<img src="/static/modestyle/worksuit.png"> <div class="desc">work suit</div>')]
+                       )
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -51,6 +65,7 @@ def image(image_id):
     print("*******************************")
     imageService = ImageService()
     form = DataGethererForm(request.form)
+    form.gender(class_="my_class")
 
     selected_img = imageService.get_img_by_id(image_id)
     print("id obr:", selected_img["id"])
