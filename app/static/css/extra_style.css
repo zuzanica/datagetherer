@@ -1,0 +1,41 @@
+.view {
+    background: linear-gradient(45deg, #0d1b4c, #8f1790);
+    background-size: cover;
+}
+
+.about_project {
+    background: white;
+    background-size: cover;
+    height: 100%;
+}
+
+
+@media (min-width: 768px) {
+    .view {
+        overflow: visible;
+        margin-top: -56px;
+    }
+}
+.navbar {
+    z-index: 1;
+}
+
+html,
+body,
+header,
+.view {
+  height: 100%;
+}
+
+.h1-responsive{
+    font-family: 'Rubik', sans-serif;
+    font-size: 4.25rem;
+}
+
+.main_text {
+    font-size: 1.25rem;
+}
+
+.tutorial{
+ background:
+}
