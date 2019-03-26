@@ -3,6 +3,7 @@ pip3 install flask_sqlalchemy
 pip3 install pymysql
 pip3 install wtforms
 pip3 install flask_wtf
+pip3 install ConfigParser
 
 
 
