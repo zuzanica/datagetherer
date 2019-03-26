@@ -80,7 +80,7 @@ class Database:
         return result
 
     def save_annotation(self, values):
-        query = "INSERT INTO ANNOTATION(gender, age,  image_id, user_id) VALUES (%s, %s, %s, %s);"
+        query = "INSERT INTO ANNOTATION(gender, age, style, image_id, user_id, description) VALUES (%s, %s, %s, %s, %s, %s);"
         self.save(query, values)
 
     def insert_image(self, values):

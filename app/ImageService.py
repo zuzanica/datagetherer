@@ -28,8 +28,8 @@ class ImageService:
         path = img[0]["path"]
         return {"id": image_id, "path": path}
 
-    def save_annotation(self, img_id, user_id, gender=None, age=None):
-        self.db.save_annotation((gender, age, img_id, user_id))
+    def save_annotation(self, img_id, user_id, gender=None, age=None, style=None, description=None):
+        self.db.save_annotation((gender, age, style, img_id, user_id, description))
 
     def next_rnd_id(self):
         priority = get_random_priority()

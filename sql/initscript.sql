@@ -9,6 +9,8 @@ CREATE TABLE ANNOTATION(
    id int not null auto_increment primary key,
    gender decimal,
    age decimal,
+   style decimal,
+   description varchar(50),
    image_id int not null,
    user_id int,
    FOREIGN KEY fk_image(image_id)

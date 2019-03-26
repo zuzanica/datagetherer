@@ -1,10 +1,11 @@
 import random
 from flask import jsonify, request, render_template, redirect, url_for
 from flask_wtf import FlaskForm
-from wtforms import RadioField
+from wtforms import RadioField, TextField, TextAreaField
 from wtforms import StringField, SelectMultipleField
 from wtforms.validators import Required
 from wtforms.widgets import ListWidget, CheckboxInput
+from wtforms import validators, ValidationError
 
 from app import app
 from app.ImageService import ImageService
@@ -30,14 +31,17 @@ class FormProject(FlaskForm):
 class DataGethererForm(FlaskForm):
     gender = RadioField(label='Gender',
                         choices=[('0', '<img src="/static/female-icon.png">'),
-                                 ('1', '<img src="/static/male-icon.png">')])
+                                 ('1', '<img src="/static/male-icon.png">')],
+                        validators=[validators.Required("Please select gender.")]
+                        )
     age = RadioField(label='Age',
-                     choices=[('0', '<img src="/static/age/child.jpg">'),
-                              ('1', '<img src="/static/age/teen.png">'),
-                              ('2', '<img src="/static/age/youngadult'
-                                    '.png">'),
-                              ('3', '<img src="/static/age/adult.jpg">'),
-                              ('4', '<img src="/static/age/retiree.png">')])
+                     choices=[('0', '<img src="/static/age/child.jpg"> <div class="desc">1+</div>'),
+                              ('1', '<img src="/static/age/teen.png"> <div class="desc">12+</div>'),
+                              ('2', '<img src="/static/age/youngadult.png"> <div class="desc">21+</div>'),
+                              ('3', '<img src="/static/age/adult.jpg"> <div class="desc">45+</div>'),
+                              ('4', '<img src="/static/age/retiree.png"> <div class="desc">60+</div>')],
+                     validators=[validators.Required("Please select age.")]
+                     )
 
     style = RadioField(label='Mode style',
                        choices=[('0', '<img src="/static/modestyle/casual.png"> <div class="desc">casual</div>'),
@@ -46,8 +50,11 @@ class DataGethererForm(FlaskForm):
                                 ('3', '<img src="/static/modestyle/street.png"> <div class="desc">street</div>'),
                                 ('4', '<img src="/static/modestyle/elegant.png"> <div class="desc">elegant</div>'),
                                 ('5', '<img src="/static/modestyle/formal.png"> <div class="desc">formal</div>'),
-                                ('6', '<img src="/static/modestyle/worksuit.png"> <div class="desc">work suit</div>')]
+                                ('6', '<img src="/static/modestyle/worksuit.png"> <div class="desc">work suit</div>'),
+                                ],
+                       validators=[validators.Required("Please select style.")]
                        )
+    description = TextField("Something more? ")
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -76,10 +83,19 @@ def image(image_id):
         if request.form['form-type'] == 'Next »':
             checked_gender = request.form['gender']
             checked_age = request.form['age']
+            checked_style = request.form['style']
+            descr = request.form['description']
             print("gender:", checked_gender)
             print("age:", checked_age)
+            print("style:", checked_style)
+            print("description:", descr)
             if (STORE_DATA):
-                imageService.save_annotation(selected_img['id'], USER_ID, int(checked_gender), int(checked_age))
+                imageService.save_annotation(selected_img['id'],
+                                             USER_ID,
+                                             int(checked_gender),
+                                             int(checked_age),
+                                             int(checked_style),
+                                             descr)
 
         next_img_id = imageService.next_rnd_id()
         return redirect(url_for('image', image_id=str(next_img_id["id"])))

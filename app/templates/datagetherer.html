@@ -82,7 +82,12 @@
                                 {{ form.style(onclick="show_selected('style')") }}
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row ">
+                            <div class="col">
+                                {{ form.description(class_="form-control w-50 mx-auto", placeholder="Something more?") }}
+                            </div>
+                        </div>
+                        <div class="row pt-3 pb-3">
                             <div class="col">
                                 <input class="btn btn-primary" name='form-type' type="submit" role="button" value="Next »">
                             </div>
