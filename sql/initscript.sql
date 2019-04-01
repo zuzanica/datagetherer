@@ -22,11 +22,6 @@ CREATE TABLE ANNOTATION(
 ALTER TABLE annotation
   ADD user_id int;
 
-ALTER TABLE image
-  ADD priority int not null;
-
-
-
 INSERT INTO IMAGE(name, path) VALUES ("1.jpg", "static/1005/1.jpg", 1);
 INSERT INTO IMAGE(name, path) VALUES ("2.jpg", "test/2.jpg", 100);
 INSERT INTO IMAGE(name, path) VALUES ("3.jpg", "test/3.jpg", 50);
@@ -37,11 +32,9 @@ UPDATE image SET priority = 50 where id =4;
 
 INSERT INTO ANNOTATION(gender, age,  image_id, user_id) VALUES (0, 1, 1, 11152);
 INSERT INTO ANNOTATION(gender, age,  image_id, user_id) VALUES (0, 1, 1, 98524);
-
-UPDATE image SET path = "1005/1.jpg" where id =1;
-
 INSERT INTO ANNOTATION(gender, age,  image_id, user_id) VALUES (null, 1, 1, 65719);
 
+UPDATE image SET path = "1005/1.jpg" where id =1;
 
 select * from image i inner join annotation a 
  on image.id = annotation.image_id;  

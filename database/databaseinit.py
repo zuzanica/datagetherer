@@ -1,6 +1,9 @@
 from app import Database
+import argparse
 
-file_name = "BUT_dataset.txt"
+parser = argparse.ArgumentParser(description='insert images')
+parser.add_argument('--import_file', type=str, default='BUT_dataset.txt')
+args = parser.parse_args()
 
 
 def create_images_from_file(file):
@@ -12,9 +15,10 @@ def create_images_from_file(file):
         img_list.append({"name": img[:-1], "path": ("dataset/" + img[:-1]), "priority": 5})
 
     for img_dict in img_list:
-        print (img_dict)
+        print(img_dict)
 
     db.insert_images(img_list)
     f.close()
 
-create_images_from_file(file_name)
+
+create_images_from_file(args.import_file)
