@@ -76,6 +76,7 @@ def image(image_id):
 
     selected_img = imageService.get_img_by_id(image_id)
     print("id obr:", selected_img["id"])
+    print("priority:", selected_img["priority"])
 
     # id = random.randrange(1, 100)
     # path = "2.jpg"
@@ -90,6 +91,8 @@ def image(image_id):
             print("style:", checked_style)
             print("description:", descr)
             if (STORE_DATA):
+                new_priority = round(selected_img["priority"] / 2)
+                imageService.update_image(selected_img["id"], ("priority", new_priority))
                 imageService.save_annotation(selected_img['id'],
                                              USER_ID,
                                              int(checked_gender),
