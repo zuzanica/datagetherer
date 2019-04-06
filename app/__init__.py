@@ -37,7 +37,16 @@ class QueryCreator:
     #    return self
 
     def _and(self, param, value, operator):
-        return "AND %s %s %s" % param, operator, value
+        self.query = self.query + "AND %s %s %s " % (param, operator, value)
+        return self
+
+    def order(self, column, order="ASC"):
+        self.query = self.query + "ORDER BY %s %s " % (column, order)
+        return self
+
+    def limit(self, limit):
+        self.query = self.query + "LIMIT %s " % limit
+        return self
 
     def build(self):
         return self.query + ";"
@@ -66,14 +75,16 @@ class Database:
         #    print(error)
 
     def get_image(self, id):
-        self.cur.execute("SELECT name, path FROM IMAGE WHERE id = %s ;", id)
+        self.cur.execute("SELECT name, path, priority FROM IMAGE WHERE id = %s ;", id)
         result = self.cur.fetchall()
         return result
 
-    def get_img_ids_by_priority(self, priority):
+    def get_img_ids_by_priority(self, priority, limit):
         query = self.qc.selectImage(["id"]) \
-            .where("priority > %s" % priority) \
+            .order("priority", "DESC") \
+            .limit(limit) \
             .build()
+            #.where("priority > %s" % priority) \
         print(query)
         self.cur.execute(query)
         result = self.cur.fetchall()
@@ -86,6 +97,12 @@ class Database:
     def insert_image(self, values):
         query = "INSERT INTO IMAGE(name, path, priority) VALUES (%s, %s, %s);"
         self.save(query, values)
+
+    def update_image(self, id, column_val_tuple):
+        query = "UPDATE IMAGE SET " + column_val_tuple[0] + " = %s WHERE id = %s ;"
+        values = (column_val_tuple[1], id)
+        self.save(query, values)
+        #print ("db - ROW UPDATED.")
 
     def insert_images(self, images_list):
         for image in images_list:

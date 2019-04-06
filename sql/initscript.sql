@@ -22,15 +22,13 @@ CREATE TABLE ANNOTATION(
 ALTER TABLE annotation
   ADD user_id int;
 
-INSERT INTO IMAGE(name, path) VALUES ("1.jpg", "static/1005/1.jpg", 1);
-INSERT INTO IMAGE(name, path) VALUES ("2.jpg", "test/2.jpg", 100);
-INSERT INTO IMAGE(name, path) VALUES ("3.jpg", "test/3.jpg", 50);
+INSERT INTO IMAGE(name, path, priority) VALUES ("1.jpg", "static/1005/1.jpg", 1);
 
 UPDATE image SET priority = 1 where id =1;
 UPDATE image SET priority = 100 where id =3;
 UPDATE image SET priority = 50 where id =4;
 
-INSERT INTO ANNOTATION(gender, age,  image_id, user_id) VALUES (0, 1, 1, 11152);
+INSERT INTO ANNOTATION(gender, age, style, description, image_id, user_id) VALUES (0, 1, 1, "empty", 1, 11152);
 INSERT INTO ANNOTATION(gender, age,  image_id, user_id) VALUES (0, 1, 1, 98524);
 INSERT INTO ANNOTATION(gender, age,  image_id, user_id) VALUES (null, 1, 1, 65719);
 
