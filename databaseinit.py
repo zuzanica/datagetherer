@@ -12,7 +12,7 @@ def create_images_from_file(file):
     f = open(file, "r")
     img_names = f.readlines()
     for img in img_names:
-        img_list.append({"name": img[:-1], "path": ("dataset/" + img[:-1]), "priority": 100})
+        img_list.append({"name": img[:-1], "path": ("dataset/" + img[:-1]), "priority": 100, "error_img": False})
 
     for img_dict in img_list:
         print(img_dict)
