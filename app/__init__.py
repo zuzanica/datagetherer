@@ -95,7 +95,7 @@ class Database:
         self.save(query, values)
 
     def insert_image(self, values):
-        query = "INSERT INTO IMAGE(name, path, priority) VALUES (%s, %s, %s);"
+        query = "INSERT INTO IMAGE(name, path, priority, error_img) VALUES (%s, %s, %s, %s);"
         self.save(query, values)
 
     def update_image(self, id, column_val_tuple):
@@ -106,4 +106,4 @@ class Database:
 
     def insert_images(self, images_list):
         for image in images_list:
-            self.insert_image((image["name"], image['path'], image["priority"]))
+            self.insert_image((image["name"], image['path'], image["priority"], image["error_img"]))

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Čo vidíš?</title>
+    <title>What do you see?</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/extra_style.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -32,7 +32,7 @@
                         <a class="nav-link" href="/#example">Examples</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/#sources">Sources</a>
+                        <a class="nav-link" href="/#references">References</a>
                     </li>
                 </ul>
             </div>
@@ -43,10 +43,10 @@
         {% from "_formhelpers.html" import render_field %}
         <form action="" method = "post" >
             {{ form.csrf_token }}
-            <div class = "jumbotron pb-3">
+            <div class = "jumbotron pb-0">
                 <div id="main_image" class="container middle">
                 <img class="rounded mt-3 mx-auto d-block" src="{{url_for('static', filename=image.path)}}" alt="Source image">
-                <h1 class="display-4 text-center">Image id: {{image.id}}</h1>
+                <h3 class="text-center">Image id: {{image.id}}</h3>
                 </div>
             </div>
             <div class="container my_container center-block text-center">
@@ -88,10 +88,11 @@
                         </div>
                         <div class="row pt-3 pb-3">
                             <div class="col text-left">
-                                <input class="btn btn-primary" name='form-type' type="submit" role="button" value="Confirm »">
+                                <input class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Confirm selected annotation." name='form-type' type="submit" role="button" value="Confirm »">
                             </div>
                             <div class="col text-right">
-                                <input class="btn btn-primary" name='form-type' type="submit" role="button" value="Skip »">
+                                <input class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Image is not correct or contains different person" name='form-type' type="submit" role="button" value="Bad image">
+                                <input class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="I don't want annotate this image." name='form-type' type="submit" role="button" value="Skip »">
                             </div>
                         </div>
                     </div>

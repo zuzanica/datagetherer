@@ -36,11 +36,11 @@ class DataGethererForm(FlaskForm):
                         validators=[DataRequired()]
                         )
     age = RadioField(label='Age',
-                     choices=[('0', '<img src="/static/age/child.jpg"> <div class="desc">1+</div>'),
-                              ('1', '<img src="/static/age/teen.png"> <div class="desc">12+</div>'),
-                              ('2', '<img src="/static/age/youngadult.png"> <div class="desc">21+</div>'),
-                              ('3', '<img src="/static/age/adult.jpg"> <div class="desc">45+</div>'),
-                              ('4', '<img src="/static/age/retiree.png"> <div class="desc">60+</div>')],
+                     choices=[('0', '<img src="/static/age/child.jpg"> <div class="desc"> 1+ </div>'),
+                              ('1', '<img src="/static/age/teen.png"> <div class="desc"> 19+ </div>'),
+                              ('2', '<img src="/static/age/youngadult.png"> <div class="desc"> 30+ </div>'),
+                              ('3', '<img src="/static/age/adult.jpg"> <div class="desc"> 45+ </div>'),
+                              ('4', '<img src="/static/age/retiree.png"> <div class="desc"> 60+ </div>')],
                      validators=[validators.DataRequired("Please select age.")]
                      )
 
@@ -101,11 +101,15 @@ def image(image_id):
                                              int(checked_age),
                                              int(checked_style),
                                              descr)
-
-        next_img_id = imageService.next_rnd_id()
-        return redirect(url_for('image', image_id=str(next_img_id["id"])))
-    else:
-        print("Ina metoda.")
+        elif request.form['form-type'] == 'Bad image':
+            imageService.update_image(selected_img["id"], ("error_img", True))
+            next_img_id = imageService.next_rnd_id()
+            return redirect(url_for('image', image_id=str(next_img_id["id"])))
+        elif request.form['form-type'] == 'Skip »':
+            next_img_id = imageService.next_rnd_id()
+            return redirect(url_for('image', image_id=str(next_img_id["id"])))
+    #else:
+        #print("Ina metoda.")
 
     return render_template('datagetherer.html', form=form, image=selected_img)
     return jsonify({'error': 'Image id not found'}), 200

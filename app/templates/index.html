@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>What do ou see?</title>
+    <title>What do you see?</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/extra_style.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
                         <a class="nav-link" href="#example">Examples</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#sources">Sources</a>
+                        <a class="nav-link" href="#references">References</a>
                     </li>
                 </ul>
             </div>
@@ -40,7 +40,8 @@
         <div class="view text-white text-center py-5 px-4 mt-5">
             <div class="container">
                 <h2 class="h1-responsive pt-3 mb-2 font-bold"><strong>Welcome!</strong></h2>
-                <p class="main_text mx-5 mb-5">This website is used to create annotations for the BUT_pedestrians dataset, which was created by students of the Faculty of Information Technology in Brno. In the "Examples" section you will find instructions on how to annotate the dataset.</p>
+                <p class="main_text mx-5 mb-5">This website is used to create annotations for the BUT_pedestrians dataset, which was created by students of the Faculty of Information Technology in Brno. In the <a href="#example">"Examples"</a> section you will find instructions on how to annotate the dataset.
+                Once you click the start button, you will be redirected to a site where you can annotate images in the BUT_pedestrians dataset. The goal is to always choose the estimated gender, age and fashion style. The most important is your subjective opinion, the success rate is not evaluated.</p>
                 <form action="" method = "post" >
                     <input class="btn btn-primary" type="submit" value="Start now!">
                 </form>
@@ -63,10 +64,10 @@
     <div class="container">
         <h5 class="card-title mx-5">How to annotate?</h5>
     </div>
-    <img class="rounded mt-3 mx-auto d-block w-100" src="/static/test/web.JPG" alt="Source image">
+    <img class="rounded mt-3 mx-auto d-block w-50" src="/static/example.jpg" alt="Source image">
 </div>
 
-<div id="sources" class="pb-3">
+<div id="references" class="pb-3">
     <div class="container">
         <h5 class="card-title mx-5">Sources of icons used from websites:</h5>
         <ul>
