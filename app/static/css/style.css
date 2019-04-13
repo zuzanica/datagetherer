@@ -1,3 +1,20 @@
+@media (min-width: 1200px) {
+    .my_container {
+        max-width: 750px !important;
+    }
+}
+
+@media screen and (min-width: 479px) and (max-width: 1024px) {
+    .my_container {
+        max-width: 750px !important;
+    }
+
+    .row{
+        display:block;
+    }
+
+}
+
 #main_image img{
 width: 400px;
 height:230px;
@@ -88,3 +105,10 @@ div.desc {
 label {
 font-weight: bold;
 }
+
+
+.my_container{
+    width: 100%
+}
+
+
