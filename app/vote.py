@@ -80,8 +80,8 @@ def image(image_id):
     print("priority:", selected_img["priority"])
     # id = random.randrange(1, 100)
     # path = "2.jpg"
-    if form.validate_on_submit() and request.method == 'POST':
-        if request.form['form-type'] == 'Confirm »':
+    if request.method == 'POST':
+        if form.validate_on_submit() and request.form['form-type'] == 'Confirm »':
             checked_gender = request.form['gender']
             checked_age = request.form['age']
             checked_style = request.form['style']
