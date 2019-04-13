@@ -6,6 +6,7 @@ from wtforms import StringField, SelectMultipleField
 from wtforms.validators import Required
 from wtforms.widgets import ListWidget, CheckboxInput
 from wtforms import validators, ValidationError
+from wtforms.validators import DataRequired
 
 from app import app
 from app.ImageService import ImageService
@@ -32,7 +33,7 @@ class DataGethererForm(FlaskForm):
     gender = RadioField(label='Gender',
                         choices=[('0', '<img src="/static/female-icon.png">'),
                                  ('1', '<img src="/static/male-icon.png">')],
-                        validators=[validators.Required("Please select gender.")]
+                        validators=[DataRequired()]
                         )
     age = RadioField(label='Age',
                      choices=[('0', '<img src="/static/age/child.jpg"> <div class="desc">1+</div>'),
@@ -40,7 +41,7 @@ class DataGethererForm(FlaskForm):
                               ('2', '<img src="/static/age/youngadult.png"> <div class="desc">21+</div>'),
                               ('3', '<img src="/static/age/adult.jpg"> <div class="desc">45+</div>'),
                               ('4', '<img src="/static/age/retiree.png"> <div class="desc">60+</div>')],
-                     validators=[validators.Required("Please select age.")]
+                     validators=[validators.DataRequired("Please select age.")]
                      )
 
     style = RadioField(label='Mode style',
@@ -52,7 +53,7 @@ class DataGethererForm(FlaskForm):
                                 ('5', '<img src="/static/modestyle/formal.png"> <div class="desc">formal</div>'),
                                 ('6', '<img src="/static/modestyle/worksuit.png"> <div class="desc">work suit</div>'),
                                 ],
-                       validators=[validators.Required("Please select style.")]
+                       validators=[validators.DataRequired("Please select style.")]
                        )
     description = TextField("Something more? ")
 
@@ -77,11 +78,10 @@ def image(image_id):
     selected_img = imageService.get_img_by_id(image_id)
     print("id obr:", selected_img["id"])
     print("priority:", selected_img["priority"])
-
     # id = random.randrange(1, 100)
     # path = "2.jpg"
-    if request.method == 'POST':
-        if request.form['form-type'] == 'Next »':
+    if form.validate_on_submit() and request.method == 'POST':
+        if request.form['form-type'] == 'Confirm »':
             checked_gender = request.form['gender']
             checked_age = request.form['age']
             checked_style = request.form['style']
@@ -91,10 +91,12 @@ def image(image_id):
             print("style:", checked_style)
             print("description:", descr)
             if (STORE_DATA):
+                user_id = request.cookies.get('id')
+                print("id user: ", user_id)
                 new_priority = round(selected_img["priority"] / 2)
                 imageService.update_image(selected_img["id"], ("priority", new_priority))
                 imageService.save_annotation(selected_img['id'],
-                                             USER_ID,
+                                             user_id,
                                              int(checked_gender),
                                              int(checked_age),
                                              int(checked_style),
