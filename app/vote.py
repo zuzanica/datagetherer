@@ -101,6 +101,8 @@ def image(image_id):
                                              int(checked_age),
                                              int(checked_style),
                                              descr)
+            next_img_id = imageService.next_rnd_id()
+            return redirect(url_for('image', image_id=str(next_img_id["id"])))
         elif request.form['form-type'] == 'Bad image':
             imageService.update_image(selected_img["id"], ("error_img", True))
             next_img_id = imageService.next_rnd_id()
@@ -108,6 +110,7 @@ def image(image_id):
         elif request.form['form-type'] == 'Skip »':
             next_img_id = imageService.next_rnd_id()
             return redirect(url_for('image', image_id=str(next_img_id["id"])))
+
     #else:
         #print("Ina metoda.")
 
