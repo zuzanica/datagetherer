@@ -14,9 +14,6 @@ from app.ImageService import ImageService
 STORE_DATA = True
 USER_ID = 12345
 
-gender = {"men", "female"}
-age = {"child", "teen", "adult", "retire"}
-
 
 class MultiCheckboxField(SelectMultipleField):
     widget = ListWidget(prefix_label=False)
@@ -44,14 +41,42 @@ class DataGethererForm(FlaskForm):
                      validators=[validators.DataRequired("Please select age.")]
                      )
 
+    casualTooltip = '"everyday clothes, jacket, sweatshirt, shirt, jeans, tracksuit, sneakers, sandals, hookers"'
+    sportTooltip = '"cyclists, runners, pads, helmet, sportswear, top, jacket, sports leggings, tracksuits, sneakers"'
+    rockTooltip = '"chin, glasses, scarves, chains, accessories, dark clothes, leather, print shirts, skulls, big shoes"'
+    streetTooltip = '"caps, headphones, chains, T-shirts and trousers, torn, jackets, sneakers,"'
+    elegantTooltip = '"manager, clerk, shirt, sweater, jacket, coat, pants, skirt, dress, high heels, boots, stockings, handbag"'
+    formalTooltip = '"heels, boots, stockings, jacket, tuxedo, dress, heels, purse"'
+    workTooltip = '"soldier, cop, worker, nurse, work clothes, uniform"'
     style = RadioField(label='Mode style',
-                       choices=[('0', '<img src="/static/modestyle/casual.png"> <div class="desc">casual</div>'),
-                                ('1', '<img src="/static/modestyle/sport.png"> <div class="desc">sport</div>'),
-                                ('2', '<img src="/static/modestyle/rock.png"> <div class="desc">rock</div>'),
-                                ('3', '<img src="/static/modestyle/street.png"> <div class="desc">street</div>'),
-                                ('4', '<img src="/static/modestyle/elegant.png"> <div class="desc">elegant</div>'),
-                                ('5', '<img src="/static/modestyle/formal.png"> <div class="desc">formal</div>'),
-                                ('6', '<img src="/static/modestyle/worksuit.png"> <div class="desc">work suit</div>'),
+                       choices=[('0', '<div data-toggle="tooltip" data-placement="bottom" title= ' + casualTooltip + ' >'
+                                        '<img data-toggle="tooltip" src="/static/modestyle/casual.png"> '
+                                        '<div class="desc">casual</div> '
+                                      '</div>'),
+                                ('1', '<div data-toggle="tooltip" data-placement="bottom" title= ' + sportTooltip + ' >'
+                                        '<img src="/static/modestyle/sport.png"> '
+                                        '<div class="desc">sport</div>'
+                                      '</div>'),
+                                ('2', '<div data-toggle="tooltip" data-placement="bottom" title= ' + rockTooltip + ' >'
+                                        '<img src="/static/modestyle/rock.png"> '
+                                        '<div class="desc">rock</div>'
+                                      '</div>'),
+                                ('3', '<div data-toggle="tooltip" data-placement="bottom" title= ' + streetTooltip + ' >'
+                                        '<img src="/static/modestyle/street.png"> '
+                                        '<div class="desc">street</div>'
+                                      '</div>'),
+                                ('4', '<div data-toggle="tooltip" data-placement="bottom" title= ' + elegantTooltip + ' >' 
+                                        '<img data-toggle="tooltip"'
+                                        'src="/static/modestyle/elegant.png"> <div class="desc">elegant</div>'
+                                      '</div>'),
+                                ('5', '<div data-toggle="tooltip" data-placement="bottom" title= ' + formalTooltip + ' >' 
+                                        '<img data-toggle="tooltip"'
+                                        'src="/static/modestyle/formal.png"> <div class="desc">formal</div>'
+                                      '</div>'),
+                                ('6', '<div data-toggle="tooltip" data-placement="bottom" title= ' + workTooltip + ' >' 
+                                        '<img data-toggle="tooltip"'
+                                        'src="/static/modestyle/worksuit.png"> <div class="desc">work suit</div>'
+                                      '</div>'),
                                 ],
                        validators=[validators.DataRequired("Please select style.")]
                        )
@@ -76,10 +101,10 @@ def image(image_id):
     form.gender(class_="my_class")
 
     selected_img = imageService.get_img_by_id(image_id)
+    selected_img["clear_image"] = "clear/" + selected_img["path"]
     print("id obr:", selected_img["id"])
+    print("clear img:", selected_img["clear_image"])
     print("priority:", selected_img["priority"])
-    # id = random.randrange(1, 100)
-    # path = "2.jpg"
     if request.method == 'POST':
         if form.validate_on_submit() and request.form['form-type'] == 'Confirm »':
             checked_gender = request.form['gender']
@@ -110,9 +135,6 @@ def image(image_id):
         elif request.form['form-type'] == 'Skip »':
             next_img_id = imageService.next_rnd_id()
             return redirect(url_for('image', image_id=str(next_img_id["id"])))
-
-    #else:
-        #print("Ina metoda.")
 
     return render_template('datagetherer.html', form=form, image=selected_img)
     return jsonify({'error': 'Image id not found'}), 200

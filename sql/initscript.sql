@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS IMAGE (
     id INT NOT NULL AUTO_INCREMENT primary key,
     name VARCHAR(255) NOT NULL,
     path VARCHAR(255) NOT NULL,
-    priority int NOT NULL
+    priority int NOT NULL,
+    error_img boolean DEFAULT false
 )  ENGINE=INNODB;
 
 CREATE TABLE ANNOTATION(
