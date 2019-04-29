@@ -28,6 +28,22 @@ function check() {
     }
 }
 
+// Open the Modal
+function openModal() {
+  document.getElementById('imageModal').style.display = "block";
+}
+
+// Close the Modal
+function closeModal() {
+  document.getElementById('imageModal').style.display = "none";
+}
+
+window.onkeyup = function (event) {
+    if (event.keyCode == 27) {
+        closeModal()
+    }
+}
+
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-    })
+  $('[data-toggle="tooltip"]').tooltip()
+})

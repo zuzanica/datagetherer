@@ -5,12 +5,14 @@
     <title>What do you see?</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/extra_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-lightbox.min.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='js/bootstrap-lightbox.min.js') }}"></script>
 </head>
 <body onLoad="check()">
 
@@ -39,14 +41,22 @@
         </div>
     </nav>
 
+    <div id="imageModal" onclick="closeModal()" class="modal">
+        <img class="full_image  mx-auto d-block" src="{{url_for('static', filename=image.clear_img)}}" alt="Source image">
+    </div>
+
     <div>
         {% from "_formhelpers.html" import render_field %}
         <form action="" method = "post" >
             {{ form.csrf_token }}
             <div class = "jumbotron pb-0">
                 <div id="main_image" class="container middle">
-                <img class="rounded mt-3 mx-auto d-block" src="{{url_for('static', filename=image.path)}}" alt="Source image">
-                <h3 class="text-center">Image id: {{image.id}}</h3>
+                    <img onclick="openModal();" class="rounded mt-3 mx-auto d-block" src="{{url_for('static', filename=image.path)}}" alt="Source image">
+                <div class="">
+                    <h3 class="col text-center">Image id: {{image.id}}
+                    <i class="fa fa-area-chart"  onclick="openModal();" style="font-size:24px"></i>
+                    </h3>
+                </div>
                 </div>
             </div>
             <div class="container my_container center-block text-center">
