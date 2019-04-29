@@ -27,3 +27,7 @@ function check() {
         setCookie("id", unique_id);
     }
 }
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+    })
