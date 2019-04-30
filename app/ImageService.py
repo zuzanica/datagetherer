@@ -8,7 +8,7 @@ class ImageService:
         self.db = Database()
         pass
 
-    def get_img_ids_by_priority(self, priority=0, limit=100):
+    def get_img_ids_by_priority(self, priority=0, limit=30):
         return self.db.get_img_ids_by_priority(priority, limit)
 
     def get_rand_img_by_priority(self, priority):

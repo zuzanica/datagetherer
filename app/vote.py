@@ -1,4 +1,5 @@
 import random
+import os
 from flask import jsonify, request, render_template, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import RadioField, TextField, TextAreaField
@@ -101,10 +102,11 @@ def image(image_id):
     form.gender(class_="my_class")
 
     selected_img = imageService.get_img_by_id(image_id)
-    selected_img["clear_image"] = "clear/" + selected_img["path"]
+    if os.path.isfile("clear/" + selected_img["path"]):
+        selected_img["resized_image"] = "clear/" + selected_img["path"]
+    else:
+        selected_img["resized_image"] = selected_img["path"]
     print("id obr:", selected_img["id"])
-    print("clear img:", selected_img["clear_image"])
-    print("priority:", selected_img["priority"])
     if request.method == 'POST':
         if form.validate_on_submit() and request.form['form-type'] == 'Confirm »':
             checked_gender = request.form['gender']
