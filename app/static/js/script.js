@@ -20,12 +20,36 @@ function setCookie(c_name, value){
 
 function check() {
     unique_id = getCookie("id")
-    console.log('nacitane unique id ')
+    console.log('user nick or id ')
     console.log(unique_id)
+    if( unique_id == "" || unique_id == null){
+        openUserModal()
+    }
+    document.getElementById("userNickName").innerHTML = "nickname: " + getCookie("id").split("=")[1];
+}
+
+function confirmNickName(){
+    nick_name = document.getElementById("login").value;
+    console.log(nick_name)
+    if(nick_name != "" && nick_name.length < 255 ) {
+        unique_id = nick_name
+        setCookie("id", unique_id);
+        closeUserModal();
+        console.log("user nick: " + nick_name)
+    } else {
+        useAnonymous();
+    }
+    document.getElementById("userNickName").innerHTML = "nickname: " + getCookie("id").split("=")[1];
+}
+
+function useAnonymous() {
+    unique_id = getCookie("id")
     if( unique_id == "" || unique_id == null){
         unique_id = new Date().getUTCMilliseconds();
         setCookie("id", unique_id);
+        console.log("anonimous id: " + unique_id)
     }
+    closeUserModal();
 }
 
 // Open the Modal
@@ -47,3 +71,11 @@ window.onkeyup = function (event) {
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+function openUserModal() {
+  document.getElementById('userModal').style.display = "block";
+}
+
+function closeUserModal() {
+  document.getElementById('userModal').style.display = "none";
+}

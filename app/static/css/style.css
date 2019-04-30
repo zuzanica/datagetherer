@@ -127,15 +127,16 @@ font-weight: bold;
 }
 
 /* Modal Content */
-.modal-content {
+.user-modal-content {
   position: relative;
   background-color: #fefefe;
   margin: auto;
-  padding: 0;
-  width: 90%;
-  max-width: 1200px;
+  width: 500px;
+  height: 300px;
+  flex-direction: column;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: .5rem
 }
-
 .full_image{
     width: 700px;
     height: 350px;
@@ -143,4 +144,3 @@ font-weight: bold;
     border-width: 5px;
     border-color: white;
 }
-
