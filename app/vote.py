@@ -102,7 +102,7 @@ def image(image_id):
     form.gender(class_="my_class")
 
     selected_img = imageService.get_img_by_id(image_id)
-    if os.path.isfile("clear/" + selected_img["path"]):
+    if os.path.isfile("app/static/clear/" + selected_img["path"]):
         selected_img["resized_image"] = "clear/" + selected_img["path"]
     else:
         selected_img["resized_image"] = selected_img["path"]
