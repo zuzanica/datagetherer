@@ -11,9 +11,10 @@ CREATE TABLE ANNOTATION(
    gender decimal,
    age decimal,
    style decimal,
-   description varchar(50),
+   description varchar(255),
    image_id int not null,
    user_id int,
+   user_nick varchar(255),
    FOREIGN KEY fk_image(image_id)
    REFERENCES IMAGE(id)
    ON UPDATE CASCADE
@@ -35,5 +36,5 @@ INSERT INTO ANNOTATION(gender, age,  image_id, user_id) VALUES (null, 1, 1, 6571
 
 UPDATE image SET path = "1005/1.jpg" where id =1;
 
-select * from image i inner join annotation a 
- on image.id = annotation.image_id;  
+select * from image i inner join annotation a
+ on image.id = annotation.image_id;
