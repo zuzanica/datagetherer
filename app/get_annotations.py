@@ -27,6 +27,7 @@ def get_annotation_form_db():
         else:
             annotations.append(annotation_dict)
 
+
     save_reanotate(reanotate_age, "re_age_" + args.file[:-4] + ".txt")
     save_reanotate(reanotate_gender, "re_gender_" + args.file[:-4] + ".txt")
     save_reanotate(reanotate_style, "re_style_" + args.file[:-4] + ".txt")
