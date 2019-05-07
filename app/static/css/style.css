@@ -144,3 +144,8 @@ font-weight: bold;
     border-width: 5px;
     border-color: white;
 }
+
+.attribute{
+    width: 70px;
+    height: 70px;
+}

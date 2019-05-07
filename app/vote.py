@@ -2,7 +2,7 @@ import random
 import os
 from flask import jsonify, request, render_template, redirect, url_for
 from flask_wtf import FlaskForm
-from wtforms import RadioField, TextField, TextAreaField
+from wtforms import RadioField, TextField, TextAreaField, BooleanField
 from wtforms import StringField, SelectMultipleField
 from wtforms.validators import Required
 from wtforms.widgets import ListWidget, CheckboxInput
@@ -82,7 +82,25 @@ class DataGethererForm(FlaskForm):
                        ],
                        validators=[validators.DataRequired("Please select style.")]
                        )
+
+    backpack = BooleanField('<img class="attribute" src="/static/attributes/backpack.jpg">')
+    handbag = BooleanField('<img class="attribute" src="/static/attributes/handbag.jpg">', default=False)
+    glasses = BooleanField('<img class="attribute" src="/static/attributes/glasses.jpg">', default=False)
+    cap = BooleanField('<img class="attribute" src="/static/attributes/cap.jpg">', default=False)
     description = TextField("Something more? ")
+
+
+def process_attribudes(form):
+    desc = form['description']
+    if 'backpack' in form:
+        desc += ' backpack'
+    if 'handbag' in form:
+        desc += ' handbag'
+    if 'glasses' in form:
+        desc += ' glasses'
+    if 'cap' in form:
+        desc += ' cap'
+    return desc
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -113,7 +131,7 @@ def image(image_id):
             checked_gender = request.form['gender']
             checked_age = request.form['age']
             checked_style = request.form['style']
-            descr = request.form['description']
+            descr = process_attribudes(request.form)
             print("gender:", checked_gender)
             print("age:", checked_age)
             print("style:", checked_style)
@@ -132,7 +150,6 @@ def image(image_id):
                 imageService.update_image(selected_img["id"], ("priority", new_priority))
                 imageService.save_annotation(selected_img['id'],
                                              user_id,
-                                             user_nick,
                                              int(checked_gender),
                                              int(checked_age),
                                              int(checked_style),

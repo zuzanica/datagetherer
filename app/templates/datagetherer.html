@@ -106,6 +106,18 @@
                         </div>
                         <div class="row ">
                             <div class="col">
+                                {{ form.backpack.label }}
+                                {{ form.backpack(onclick="show_selected('backpack')") }}
+                                {{ form.handbag.label }}
+                                {{ form.handbag(onclick="show_selected('handbag')") }}
+                                {{ form.glasses.label }}
+                                {{ form.glasses(onclick="show_selected('glasses')") }}
+                                {{ form.cap.label }}
+                                {{ form.cap(onclick="show_selected('cap')") }}
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col">
                                 {{ form.description(class_="form-control mx-auto", placeholder="Something more?") }}
                             </div>
                         </div>
