@@ -50,35 +50,36 @@ class DataGethererForm(FlaskForm):
     formalTooltip = '"heels, boots, stockings, jacket, tuxedo, dress, heels, purse"'
     workTooltip = '"soldier, cop, worker, nurse, work clothes, uniform"'
     style = RadioField(label='Mode style',
-                       choices=[('0', '<div data-toggle="tooltip" data-placement="bottom" title= ' + casualTooltip + ' >'
-                                        '<img data-toggle="tooltip" src="/static/modestyle/casual.png"> '
-                                        '<div class="desc">casual</div> '
-                                      '</div>'),
-                                ('1', '<div data-toggle="tooltip" data-placement="bottom" title= ' + sportTooltip + ' >'
-                                        '<img src="/static/modestyle/sport.png"> '
-                                        '<div class="desc">sport</div>'
-                                      '</div>'),
-                                ('2', '<div data-toggle="tooltip" data-placement="bottom" title= ' + rockTooltip + ' >'
-                                        '<img src="/static/modestyle/rock.png"> '
-                                        '<div class="desc">rock</div>'
-                                      '</div>'),
-                                ('3', '<div data-toggle="tooltip" data-placement="bottom" title= ' + streetTooltip + ' >'
-                                        '<img src="/static/modestyle/street.png"> '
-                                        '<div class="desc">street</div>'
-                                      '</div>'),
-                                ('4', '<div data-toggle="tooltip" data-placement="bottom" title= ' + elegantTooltip + ' >' 
-                                        '<img data-toggle="tooltip"'
-                                        'src="/static/modestyle/elegant.png"> <div class="desc">elegant</div>'
-                                      '</div>'),
-                                ('5', '<div data-toggle="tooltip" data-placement="bottom" title= ' + formalTooltip + ' >' 
-                                        '<img data-toggle="tooltip"'
-                                        'src="/static/modestyle/formal.png"> <div class="desc">formal</div>'
-                                      '</div>'),
-                                ('6', '<div data-toggle="tooltip" data-placement="bottom" title= ' + workTooltip + ' >' 
-                                        '<img data-toggle="tooltip"'
-                                        'src="/static/modestyle/worksuit.png"> <div class="desc">work suit</div>'
-                                      '</div>'),
-                                ],
+                       choices=[
+                           ('0', '<div data-toggle="tooltip" data-placement="bottom" title= ' + casualTooltip + ' >'
+                                                                                                                '<img data-toggle="tooltip" src="/static/modestyle/casual.png"> '
+                                                                                                                '<div class="desc">casual</div> '
+                                                                                                                '</div>'),
+                           ('1', '<div data-toggle="tooltip" data-placement="bottom" title= ' + sportTooltip + ' >'
+                                                                                                               '<img src="/static/modestyle/sport.png"> '
+                                                                                                               '<div class="desc">sport</div>'
+                                                                                                               '</div>'),
+                           ('2', '<div data-toggle="tooltip" data-placement="bottom" title= ' + rockTooltip + ' >'
+                                                                                                              '<img src="/static/modestyle/rock.png"> '
+                                                                                                              '<div class="desc">rock</div>'
+                                                                                                              '</div>'),
+                           ('3', '<div data-toggle="tooltip" data-placement="bottom" title= ' + streetTooltip + ' >'
+                                                                                                                '<img src="/static/modestyle/street.png"> '
+                                                                                                                '<div class="desc">street</div>'
+                                                                                                                '</div>'),
+                           ('4', '<div data-toggle="tooltip" data-placement="bottom" title= ' + elegantTooltip + ' >'
+                                                                                                                 '<img data-toggle="tooltip"'
+                                                                                                                 'src="/static/modestyle/elegant.png"> <div class="desc">elegant</div>'
+                                                                                                                 '</div>'),
+                           ('5', '<div data-toggle="tooltip" data-placement="bottom" title= ' + formalTooltip + ' >'
+                                                                                                                '<img data-toggle="tooltip"'
+                                                                                                                'src="/static/modestyle/formal.png"> <div class="desc">formal</div>'
+                                                                                                                '</div>'),
+                           ('6', '<div data-toggle="tooltip" data-placement="bottom" title= ' + workTooltip + ' >'
+                                                                                                              '<img data-toggle="tooltip"'
+                                                                                                              'src="/static/modestyle/worksuit.png"> <div class="desc">work suit</div>'
+                                                                                                              '</div>'),
+                       ],
                        validators=[validators.DataRequired("Please select style.")]
                        )
     description = TextField("Something more? ")
@@ -119,11 +120,19 @@ def image(image_id):
             print("description:", descr)
             if (STORE_DATA):
                 user_id = request.cookies.get('id')
+                try:
+                    int(user_id)
+                except:
+                    user_id = 0
+                    pass
+
+                user_nick = request.cookies.get('id')
                 print("id user: ", user_id)
                 new_priority = round(selected_img["priority"] / 2)
                 imageService.update_image(selected_img["id"], ("priority", new_priority))
                 imageService.save_annotation(selected_img['id'],
                                              user_id,
+                                             user_nick,
                                              int(checked_gender),
                                              int(checked_age),
                                              int(checked_style),

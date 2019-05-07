@@ -103,8 +103,24 @@ class Database:
         query = "UPDATE IMAGE SET " + column_val_tuple[0] + " = %s WHERE id = %s ;"
         values = (column_val_tuple[1], id)
         self.save(query, values)
-        #print ("db - ROW UPDATED.")
+        # print ("db - ROW UPDATED.")
 
     def insert_images(self, images_list):
         for image in images_list:
             self.insert_image((image["name"], image['path'], image["priority"], image["error_img"]))
+
+    def get_images_ids(self):
+        query = "SELECT i.id, name, count(*) as count FROM IMAGE i " \
+                "INNER JOIN ANNOTATION a on a.image_id = i.id " \
+                "WHERE i.error_img = false " \
+                "GROUP BY i.id " \
+                "HAVING count(*) >= 2; "
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
+    def get_annotations_by_img_id(self, img_id):
+        self.cur.execute("SELECT name, gender, age, style FROM ANNOTATION a JOIN IMAGE i ON a.image_id = i.id WHERE "
+                         "i.id = %s; ", img_id)
+        result = self.cur.fetchall()
+        return result
