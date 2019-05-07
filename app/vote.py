@@ -83,8 +83,9 @@ class DataGethererForm(FlaskForm):
                        validators=[validators.DataRequired("Please select style.")]
                        )
 
-    backpack = BooleanField('<img class="attribute" src="/static/attributes/backpack.jpg">')
+    backpack = BooleanField('<img class="attribute" src="/static/attributes/backpack.jpg">', default=False)
     handbag = BooleanField('<img class="attribute" src="/static/attributes/handbag.jpg">', default=False)
+    shopping = BooleanField('<img class="attribute" src="/static/attributes/shopping.png">', default=False)
     glasses = BooleanField('<img class="attribute" src="/static/attributes/glasses.jpg">', default=False)
     cap = BooleanField('<img class="attribute" src="/static/attributes/cap.jpg">', default=False)
     description = TextField("Something more? ")
@@ -96,6 +97,8 @@ def process_attribudes(form):
         desc += ' backpack'
     if 'handbag' in form:
         desc += ' handbag'
+    if 'shopping' in form:
+        desc += ' shoppingbag'
     if 'glasses' in form:
         desc += ' glasses'
     if 'cap' in form:
