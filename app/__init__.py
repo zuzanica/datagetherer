@@ -120,7 +120,7 @@ class Database:
         return result
 
     def get_annotations_by_img_id(self, img_id):
-        self.cur.execute("SELECT name, gender, age, style FROM ANNOTATION a JOIN IMAGE i ON a.image_id = i.id WHERE "
+        self.cur.execute("SELECT i.id, name, gender, age, style FROM ANNOTATION a JOIN IMAGE i ON a.image_id = i.id WHERE "
                          "i.id = %s; ", img_id)
         result = self.cur.fetchall()
         return result
