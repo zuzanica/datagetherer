@@ -141,13 +141,6 @@ def image(image_id):
             print("description:", descr)
             if (STORE_DATA):
                 user_id = request.cookies.get('id')
-                try:
-                    int(user_id)
-                except:
-                    user_id = 0
-                    pass
-
-                user_nick = request.cookies.get('id')
                 print("id user: ", user_id)
                 new_priority = round(selected_img["priority"] / 2)
                 imageService.update_image(selected_img["id"], ("priority", new_priority))
