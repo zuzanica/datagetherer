@@ -114,13 +114,13 @@ class Database:
                 "INNER JOIN ANNOTATION a on a.image_id = i.id " \
                 "WHERE i.error_img = false " \
                 "GROUP BY i.id " \
-                "HAVING count(*) >= 2; "
+                "HAVING count(*) >= 1; "
         self.cur.execute(query)
         result = self.cur.fetchall()
         return result
 
     def get_annotations_by_img_id(self, img_id):
-        self.cur.execute("SELECT i.id, name, gender, age, style FROM ANNOTATION a JOIN IMAGE i ON a.image_id = i.id WHERE "
+        self.cur.execute("SELECT i.id, name, gender, age, style, description FROM ANNOTATION a JOIN IMAGE i ON a.image_id = i.id WHERE "
                          "i.id = %s; ", img_id)
         result = self.cur.fetchall()
         return result
