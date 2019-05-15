@@ -105,6 +105,12 @@ class Database:
         self.save(query, values)
         # print ("db - ROW UPDATED.")
 
+    def update_image_by_name(self, name, column_val_tuple):
+        query = "UPDATE IMAGE SET " + column_val_tuple[0] + " = %s WHERE name = %s ;"
+        values = (column_val_tuple[1], name)
+        self.save(query, values)
+        # print ("db - ROW UPDATED.")
+
     def insert_images(self, images_list):
         for image in images_list:
             self.insert_image((image["name"], image['path'], image["priority"], image["error_img"]))
