@@ -2,7 +2,7 @@ from app import Database
 import argparse
 
 parser = argparse.ArgumentParser(description='insert images')
-parser.add_argument('--import_file', type=str, default='test.txt')
+parser.add_argument('--import_file', type=str, default='annotations_balanced_v1.csv')
 args = parser.parse_args()
 
 
@@ -13,7 +13,7 @@ def create_images_from_file(file):
     img_names = f.readlines()
     for img in img_names:
         img_id = img.split(',')[0]
-        db.update_image(img_id, ("priority", 120))
+        db.update_image_by_name(img_id, ("priority", 120))
 
     f.close()
 
